@@ -1,0 +1,57 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import ENTIDADE.Participantes;
+import UTIL.Jdbc;
+import UTIL.JpaUtil;
+
+public class  ParticipantesImplDAO implements ParticipantesDAO {
+
+
+
+	@Override
+	public void inserir(Participantes participante) {
+		String sql = "INSERT INTO PARTICIPANTES (CPF, NOME, ITEMTRAZIDO)"
+		           + "VALUES(?,?,?)";
+		Connection conexao = null;
+		
+		try{
+			
+			
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			
+			ps.setString(1, participante.getCpf());
+			ps.setString(2, participante.getNome());
+			ps.setString(3, participante.getItemTrazido());
+			
+			ps.execute();
+			ps.close();
+			conexao.close();
+		
+		
+	}
+	}
+	@Override
+	public List<Participantes> ListarParticipantes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void alterar(Participantes participante) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remover(int cpf) {
+		// TODO Auto-generated method stub
+		
+	}
+
+

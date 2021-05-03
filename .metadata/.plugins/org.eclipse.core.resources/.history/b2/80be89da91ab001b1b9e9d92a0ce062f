@@ -1,0 +1,109 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
+import ENTIDADE.Participantes;
+import UTIL.Jdbc;
+import UTIL.JpaUtil;
+
+public class ParticipantesImplDAO implements ParticipantesDAO {
+
+	private static final Object CPF = null;
+	private static final Object nome = null;
+	private EntityManager ent;
+	private EntityTransaction ts;
+	@Override
+	public void inserir(Participantes participante) {
+		
+
+		String sql = "INSERT INTO PARTICIPANTES (CPF, NOME, ITEMTRAZIDO)"
+				+ "VALUES (?,?,?)";
+		
+		Connection conexao = null;
+		
+		try {
+			
+			
+			
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ps.setString(1, participante.getCpf());
+			ps.setString(2, participante.getNome());
+			ps.setString(3, participante.getItemTrazido());
+			
+			ps.execute();
+			ps.close();
+			conexao.close();
+		}
+	catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public List<Participantes> ListarParticipantes() {
+		List<Participantes> participantes = new ArrayList<Participantes>();
+		this.ent = JpaUtil.getEntityManager();
+
+		Query query = ent.createQuery("from * PARTICIPANTES");
+
+		participantes = query.getResultList();
+		return ListarParticipantes();
+	}
+
+	@Override
+	public void alterar(Participantes participante) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			Participantes ParticipanteAlterar = ent.find(Participantes.class, CPF);
+			ts = ent.getTransaction();
+			ts.begin();
+			ent.merge(ParticipanteAlterar);
+			ts.commit();
+
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				ts.rollback();
+			}
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
+
+	}
+		
+	
+
+	@Override
+	public void remover(int cpf) {
+		
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			Participantes ParticipantesRemover = ent.find(Participantes.class, nome);
+			ts = ent.getTransaction();
+			ts.begin();
+			ent.remove(ParticipantesRemover);
+			ts.commit();
+
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				ts.rollback();
+			}
+		} finally {
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
+
+	}
+
+		
+	}
+
+

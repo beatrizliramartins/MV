@@ -1,0 +1,97 @@
+package DAO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
+import ENTIDADE.Participantes;
+import UTIL.JpaUtil;
+
+public class ParticipantesImplDAO implements ParticipantesDAO {
+
+	private EntityManager ent;
+	private EntityTransaction ts;
+	@Override
+	public void inserir(Participantes participante) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			ts = ent.getTransaction();
+			ent.persist(participante);
+			ts.commit();
+		}catch (Exception e) {
+			if(ent.isOpen()) {
+				ent.close();
+			}
+		}finally {
+			if(ent.isOpen()) {
+				ent.close();
+			}
+		}
+		
+	}
+
+	@Override
+	public List<Participantes> ListarParticipantes() {
+		List<Participantes> sorvetes = new ArrayList<Participantes>();
+		this.ent = JpaUtil.getEntityManager();
+
+		Query query = ent.createQuery("from * SORVETE");
+
+		sorvetes = query.getResultList();
+		return ListarParticipantes();
+	}
+
+	@Override
+	public void alterar(Participantes participante) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			Participantes ParticipanteAlterar = ent.find(Participantes.class, CPF);
+			ts = ent.getTransaction();
+			ts.begin();
+			ent.merge(ParticipanteAlterar);
+			ts.commit();
+
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				ts.rollback();
+			}
+		} finally {
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
+
+	}
+		
+	
+
+	@Override
+	public void remover(int cpf) {
+		
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			Participantes ParticipantesRemover = ent.find(Participantes.class, nome);
+			ts = ent.getTransaction();
+			ts.begin();
+			ent.remove(ParticipantesRemover);
+			ts.commit();
+
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				ts.rollback();
+			}
+		} finally {
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
+
+	}
+
+		
+	}
+
+}

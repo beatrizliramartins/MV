@@ -1,0 +1,18 @@
+package PROJETOMV.PROJETOMV;
+
+import javax.persistence.EntityManager;
+
+import UTIL.JpaUtil;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+       EntityManager ent = JpaUtil.getEntityManager();
+       System.out.println(ent.isOpen());
+    }
+}

@@ -1,0 +1,8 @@
+VIEW\TesteConexao.class
+PROJETOMV\PROJETOMV\Banco.class
+PROJETOMV\PROJETOMV\App.class
+DAO\ParticipantesDAO.class
+DAO\ParticipantesImplDAO.class
+ENTIDADE\Participantes.class
+UTIL\Jdbc.class
+UTIL\JpaUtil.class

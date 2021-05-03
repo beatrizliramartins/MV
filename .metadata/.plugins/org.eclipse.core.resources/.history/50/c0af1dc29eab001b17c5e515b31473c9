@@ -1,0 +1,22 @@
+package DAO;
+
+import java.util.List;
+
+import ENTIDADE.Participantes;
+
+public interface ParticipantesDAO {
+	
+	//Inserir
+	public void inserir(Participantes participante);
+	
+	//lista
+	public List <Participantes> ListarParticipantes();
+	
+	//Alteração
+	public void alterar(Participantes participante);
+	
+	//Remover pelo cpf
+	public void remover(int cpf);
+	
+
+}

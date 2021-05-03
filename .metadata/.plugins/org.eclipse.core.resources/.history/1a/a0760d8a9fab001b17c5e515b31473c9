@@ -1,0 +1,40 @@
+package DAO;
+
+import java.util.List;
+
+import ENTIDADE.Participantes;
+
+public class ParticipantesImplDAO implements ParticipantesDAO {
+
+	@Override
+	public void salvar(Participantes p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remover(String nome) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void alterar(String nome) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Participantes pesquisar(String nome) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Participantes> listarSorvetes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}
